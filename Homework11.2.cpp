@@ -30,7 +30,50 @@ public:
         biginteger.clear();
     }
 
+    big_integer(const big_integer& other) {
+        biginteger = other.biginteger;
+    }
 
+    big_integer(std::vector<int> neww) {
+        biginteger = neww;
+    }
+    
+    big_integer operator = (const big_integer& other) {
+        biginteger = other.biginteger;
+        return *this;
+    }
+    big_integer operator + (big_integer other) {
+        std::reverse(biginteger.begin(), biginteger.end());
+        std::reverse(other.biginteger.begin(), other.biginteger.end());
+        std::vector<int> tmp;
+        int tmp2;
+        int nextten = 0;
+        for (int i = 0; i < biginteger.size(); i++) {
+            if (i >= other.biginteger.size()) {
+                tmp.push_back(biginteger[i]);
+            }
+            else {
+                tmp2 = biginteger[i] + other.biginteger[i];
+                if (tmp2 >= 10) {
+                    if (i == 0) {
+                        tmp2 -= 10;
+                        nextten = 1;
+                    }
+                    else {
+                        tmp2 -= 10;
+                        biginteger[i + 1] += 1;
+                    }
+                }
+                tmp.push_back(tmp2);
+            }
+        }
+        if (nextten == 1) {
+            tmp.push_back(1);
+        }
+        std::reverse(tmp.begin(), tmp.end());
+        big_integer ret(tmp);
+        return ret;
+    }
 };
 
 int main()
@@ -39,7 +82,8 @@ int main()
     auto number2 = big_integer("78524");
     number1.print();
     number2.print();
-   // auto result = number1 + number2;
+    auto result = number1 + number2;
+    result.print();
     //std::cout << result; // 193099
 
 }
