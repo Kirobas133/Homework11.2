@@ -74,6 +74,21 @@ public:
         big_integer ret(tmp);
         return ret;
     }
+    big_integer operator * (big_integer other) {
+        std::reverse(biginteger.begin(), biginteger.end());
+        std::reverse(other.biginteger.begin(), other.biginteger.end());
+        std::vector<int> tmpsum1;
+        std::vector<int> tmpsum2;
+        int tmp;
+        int nextten = 0;
+        for (int i = 0; i < other.biginteger.size(); i++) {
+            for (int j = 0; j < biginteger.size(); j++) {
+                tmp = biginteger[j] * other.biginteger[i];
+                tmpsum1.push_back(tmp);
+            }
+
+        }
+    }
 };
 
 int main()
