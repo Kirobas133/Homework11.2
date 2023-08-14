@@ -47,16 +47,19 @@ public:
         biginteger.clear();
     }
 
-    big_integer(const big_integer& other) {
-        biginteger = other.biginteger;
+    big_integer(big_integer& other) {
+        biginteger = std::move(other.biginteger);
     }
 
     big_integer(std::vector<int> neww) {
         biginteger = neww;
     }
     
-    big_integer operator = (const big_integer& other) {
-        biginteger = other.biginteger;
+    big_integer& operator = (big_integer&& other) {
+        if (&other != this) {
+            biginteger = other.biginteger;
+            other.biginteger.clear();
+        }
         return *this;
     }
     big_integer operator + (big_integer other) {
